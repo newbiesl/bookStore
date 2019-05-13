@@ -55,12 +55,12 @@
      <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath*:com/family/persistence/config/*.xml"/>
+        <property name="mapperLocations" value="classpath*:com/bookStore/persistence/config/*.xml"/>
     </bean>
     
     <!-- 配置映射接口对应的 根据映射文件生成的代理实现类bean，默认代理实现类bean的id为映射接口名（首字母小写） -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.family.persistence" /><!--映射接口所在的包 -->
+        <property name="basePackage" value="com.bookStore.persistence" /><!--映射接口所在的包 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
@@ -80,5 +80,4 @@
         <context:exclude-filter type="annotation"
             expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-
 </beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.bookStore.persistence.OrdersMapper">
+        <resultMap id="BaseResultMap" type="com.bookStore.domain.Orders">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="uid" property="uid" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="order_price" property="orderPrice" jdbcType="VARCHAR" />
+        <result column="cre_ctme" property="creTime" jdbcType="TIMESTAMP" />
+        <result column="order_prod_info" property="orderProdInfo" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,uid, order_id, order_price, cre_ctme, order_prod_info
+    </sql>
+    
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.bookStore.persistence.UserMapper">
+	<resultMap id="BaseResultMap" type="com.bookStore.domain.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+        <result column="user_heads" property="userHeads" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR" />
+        <result column="user_age" property="userAge" jdbcType="INTEGER" />
+        <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+        <result column="user_birthday" property="userBrithday" jdbcType="VARCHAR" />
+        <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+        <result column="user_balance" property="userBalance" jdbcType="INTEGER" />
+        <result column="user_intro" property="userIntro" jdbcType="VARCHAR" />
+        <result column="user_type" property="userType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,user_name, user_pwd, user_heads, user_sex, user_age, user_nickname, user_birthday, user_address, user_balance, user_intro,user_type
+	</sql>
+    
+	<insert id="insertUser" parameterType="com.bookStore.domain.User">
+		insert into user (<include refid="Base_Column_List"/>)
+    		values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, #{userHeads,jdbcType=BLOB}, #{userSex,jdbcType=VARCHAR}, 
+            #{userAge,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR}, #{userBrithday,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userBalance,jdbcType=INTEGER}, 
+            #{userIntro,jdbcType=VARCHAR},#{userType,jdbcType=VARCHAR})
+	</insert>
+    
+    <select id="selectUser" resultMap="BaseResultMap" parameterType="HashMap">
+        select <include refid="Base_Column_List"/> 
+        from user 
+        where 1=1
+        <if test="userName != null and userName != ''.toString()">
+            and user_name = #{userName}
+        </if>
+        <if test="userPwd != null and userPwd != ''.toString()">
+            and user_pwd = #{userPwd}
+        </if>
+    </select>
+</mapper>

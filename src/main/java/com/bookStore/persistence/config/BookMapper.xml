@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.BookMapper"就是me.gacl.mapping(包名)+BookMapper(BookMapper.xml文件去除后缀) -->
+<mapper namespace="com.bookStore.persistence.BookMapper">
+    <resultMap id="BaseResultMap" type="com.bookStore.domain.Book">
+        <id column="bid" property="bid" jdbcType="VARCHAR" />
+        <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DOUBLE" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+        <result column="image" property="image" jdbcType="VARCHAR" />
+        <result column="cid" property="cid" jdbcType="VARCHAR" />
+        <result column="book_status" property="bookStatus" jdbcType="VARCHAR" />
+        <result column="book_code" property="bookCode" jdbcType="VARCHAR" />
+        <result column="book_stock" property="bookStock" jdbcType="INTEGER" />
+        <result column="cre_time" property="creTime" jdbcType="TIMESTAMP" />
+        <result column="sold_num" property="soldNum" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        bid,book_name,price,author,image,cid,book_status,book_code,book_stock,cre_time,sold_num
+    </sql>
+    <insert id="insertBook" parameterType="com.bookStore.domain.Book">
+        insert into Book (
+            <include refid="Base_Column_List" />
+        )
+        values (#{bid,jdbcType=VARCHAR}, #{book_name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+        #{author,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{cid,jdbcType=VARCHAR},
+        #{book_status,jdbcType=VARCHAR}, #{book_code,jdbcType=VARCHAR}, #{book_stock,jdbcType=INTEGER},
+        #{cre_time,jdbcType=TIMESTAMP}, #{sold_num,jdbcType=INTEGER})
+    </insert>
+
+    <select id="selectBook" resultMap="BaseResultMap" parameterType="HashMap">
+        select
+            <include refid="Base_Column_List" />
+        from book
+        where 1=1
+        <if test="bname != null and bname != ''.toString()">
+            and bname = #{bname}
+        </if>
+    </select>
+</mapper>
